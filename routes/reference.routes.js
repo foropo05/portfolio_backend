@@ -1,10 +1,14 @@
 const router = require("express").Router();
 const c = require("../controllers/reference.controller");
+const auth = require("../middleware/auth");
 
-router.post("/", c.add);
+//  PUBLIC
 router.get("/", c.getAll);
 router.get("/:id", c.getById);
-router.put("/:id", c.update);
-router.delete("/:id", c.remove);
+
+// PROTECTED
+router.post("/", auth, c.add);
+router.put("/:id", auth, c.update);
+router.delete("/:id", auth, c.remove);
 
 module.exports = router;
